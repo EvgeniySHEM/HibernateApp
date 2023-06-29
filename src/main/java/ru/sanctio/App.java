@@ -13,6 +13,7 @@ public class App {
 //        Session session = sessionFactory.getCurrentSession();
 
 //        addNewPerson(sessionFactory);
+        update(sessionFactory);
         findAndGet(sessionFactory);
 
     }
@@ -45,10 +46,30 @@ public class App {
             Person person1 = new Person("Test1", 10);
             Person person2 = new Person("Test2", 20);
             Person person3 = new Person("Test3", 30);
+            Person person4 = new Person("Test4", 40);
+            Person person5 = new Person("Test5", 50);
 
             session.persist(person1);
             session.persist(person2);
             session.persist(person3);
+            session.save(person4);
+            session.save(person5);
+
+            session.getTransaction().commit();
+
+        } finally {
+            session.close();
+        }
+    }
+
+    private static void update(SessionFactory sessionFactory) {
+        Session session = sessionFactory.getCurrentSession();
+        try {
+            session.beginTransaction();
+
+            Person person1 = session.find(Person.class, 1); //JPA
+            if (person1 != null)
+                person1.setName("New test name");
 
             session.getTransaction().commit();
 
