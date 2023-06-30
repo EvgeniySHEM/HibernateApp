@@ -16,7 +16,6 @@ public class App {
                 .addAnnotatedClass(Item.class);
         SessionFactory sessionFactory = configuration.buildSessionFactory();
 
-        addNewItemForPerson(sessionFactory);
-        System.out.println(getItemsForPerson(sessionFactory));
+        testCascading(sessionFactory);
     }
 }

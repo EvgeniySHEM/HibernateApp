@@ -21,6 +21,10 @@ public class Item {
     public Item() {
     }
 
+    public Item(String itemName) {
+        this.itemName = itemName;
+    }
+
     public Item(Person owner, String itemName) {
         this.owner = owner;
         this.itemName = itemName;

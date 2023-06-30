@@ -1,6 +1,7 @@
 package ru.sanctio.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,8 @@ public class Person {
     @Column(name = "age")
     private int age;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.PERSIST)
+//    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE) для того, чтобы каскадирование работало и для метода save
     private List<Item> items;
 
     public Person() {}
@@ -60,6 +62,15 @@ public class Person {
 
     public void setItems(List<Item> items) {
         this.items = items;
+    }
+
+    public void addItem(Item item) {
+        if(this.items == null) {
+            this.items = new ArrayList<>();
+        }
+        //связь с двух сторон
+        this.items.add(item);
+        item.setOwner(this);
     }
 
     @Override
