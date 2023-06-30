@@ -25,6 +25,9 @@ public class Person {
 //    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE) для того, чтобы каскадирование работало и для метода save
     private List<Item> items;
 
+    @OneToOne(mappedBy = "person", cascade = CascadeType.PERSIST)
+    private Passport passport;
+
     public Person() {}
 
     public Person(String name, int age) {
@@ -71,6 +74,15 @@ public class Person {
         //связь с двух сторон
         this.items.add(item);
         item.setOwner(this);
+    }
+
+    public Passport getPassport() {
+        return passport;
+    }
+
+    public void setPassport(Passport passport) {
+        this.passport = passport;
+        passport.setPerson(this);
     }
 
     @Override
