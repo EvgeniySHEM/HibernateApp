@@ -1,7 +1,9 @@
 package ru.sanctio;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.beanvalidation.HibernateTraversableResolver;
 import ru.sanctio.model.Item;
 import ru.sanctio.model.Person;
 
@@ -16,10 +18,10 @@ public class CheckingTheConnectionOfEntities {
             session.beginTransaction();
 
             Person person = session.get(Person.class, 3);
-            List<Item> items = person.getItems();
+            Hibernate.initialize(person.getItems());
 
             session.getTransaction().commit();
-            return items;
+            return person.getItems();
         }
     }
 

@@ -1,5 +1,6 @@
 package ru.sanctio;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import ru.sanctio.model.Actor;
@@ -35,10 +36,10 @@ public class ManyToMany {
             session.beginTransaction();
 
             Movie movie = session.get(Movie.class, 1);
-            List<Actor> actors = movie.getActors();
+            Hibernate.initialize(movie.getActors()); //иначе вызов может не произойти и Lazy объекты не подгрузятся
 
             session.getTransaction().commit();
-            return actors;
+            return movie.getActors();
         }
     }
 

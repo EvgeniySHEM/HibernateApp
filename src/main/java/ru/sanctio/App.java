@@ -18,6 +18,6 @@ public class App {
                 .addAnnotatedClass(Actor.class).addAnnotatedClass(Movie.class);
         SessionFactory sessionFactory = configuration.buildSessionFactory();
 
-        addActorsForMovie(sessionFactory);
+        System.out.println(getActorsForMovie(sessionFactory));
     }
 }
